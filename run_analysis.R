@@ -38,29 +38,9 @@ measurement_summary <- rbind(mean,standard_deviation)
 measurement_summary
 
 #average of each variable for each activity and each subject.
-library(reshape2)
-names(neatData)
-neatData2 <- melt(neatData, id=c("subject","action"), measure.vars = names(neatData)[-c(1,2)])
-head(neatData2,n=3)
-neatMeansData <- dcast(neatData2, id ~ variable, mean)
-
-lapply(split(neatData,neatData$subject),mean)
-# library(dplyr)
-#neatData$subject <- factor(neatData$subject,levels=unique(subject_train),labels=unique(subject_train))
-# str(neatData)
-# neatData2 <- tbl_df(neatData)
-# neatData2
-# 
-# grpNeatData <- group_by(neatData2, subject, action)
-# summarize(grpNeatData,mean = colMeans)
-
-neatData2 <- tbl_df(neatData)
-grp_sub <- group_by(neatData2, subject)
-
-aggregate(neatData$tBodyAcc-mean()-Y ~ action + subject, data = neatData, FUN = "mean")
-
+#This creates the second tidy data set
 library(plyr)
 library(foreach)
 neatData2 <- ddply(neatData,c("subject","action"),function(df) colMeans(df[,-c(1,2)]))
-head(neatData2,2)
-str(neatData2)
+
+write.table(x = neatData2,file = "CourseProjectOutput.txt",row.name=FALSE)
