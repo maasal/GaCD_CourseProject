@@ -60,5 +60,7 @@ grp_sub <- group_by(neatData2, subject)
 aggregate(neatData$tBodyAcc-mean()-Y ~ action + subject, data = neatData, FUN = "mean")
 
 library(plyr)
-neatData2 <- ddply(.data = neatData,.variables = c("subject","action"),.fun = "mean",)
-neatData2
+library(foreach)
+neatData2 <- ddply(neatData,c("subject","action"),function(df) colMeans(df[,-c(1,2)]))
+head(neatData2,2)
+str(neatData2)
