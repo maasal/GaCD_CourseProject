@@ -1,8 +1,9 @@
-pus	###Code Book
+##Code Book
 
-##Variables
+###Variables
+* 1st variable
 
-##Data
+###Data
 
-##Transformations and editions
+###Transformations and editions
 
